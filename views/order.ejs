@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barista</title>
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link rel="stylesheet" href="order.css">
+
+</head>
+
+<body>
+
+  <div class="page-header text-center">
+    <h1><i class="fas fa-coffee"></i> Cafe con Leche</h1>
+  </div>
+
+  <main>
+    <div id="container">
+      <div id="monitor">
+        <div id="monitorscreen">
+          <h3><img
+              src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/000000/external-coffee-coffee-shop-flatart-icons-lineal-color-flatarticons-15.png" />
+            Order</h3>
+          <section id="posButtons">
+            <button class="coffee pos" data-toggle="modal" data-target="#exampleModal">COFFEE</button>
+            <button class="size pos" data-toggle="modal" data-target="#exampleModal">SIZE</button>
+            <button class="milk pos" data-toggle="modal" data-target="#exampleModal">MILK</button>
+            <button class="add-ons pos" data-toggle="modal" data-target="#exampleModal">ADD-ONS</button>
+
+          </section>
+          <input id="name" class="form-control" type="text" placeholder="Customer Name" required>
+          <button type="button" class="btn btn-info" id="submit">Submit</button>
+          <button type="button" class="btn btn-info" onClick="window.location.reload()">clear Order</button>
+          <button type="button" id="print" class="btn btn-info">Print receipt</button>
+          <ul class="list-group">
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="receipt" class="receipt hidden">
+      <header class="receipt__header">
+        <p class="receipt__title">
+          Customer's receipt
+        </p>
+        <p class="receipt__date">
+          <%= new Date().toLocaleString()%>
+        </p>
+      </header>
+      <div class="receipt__list">
+        <% if ( orders.length !==0) { %>
+          <% for(var i=0 ; i<orders[orders.length - 1].drink.length; i++) {%>
+
+            <div class="receipt__list-row">
+              <dt class="receipt__item">
+                <%= orders[orders.length - 1].drink[i] %>, <%= orders[orders.length - 1].size[i] %>
+              </dt>
+              <dd class="receipt__cost">4</dd>
+            </div>
+
+            <% } %>
+              <% } %>
+                <div class="receipt__list-total-row receipt__list-row--total  ">
+                  <dt class="receipt__item">Total</dt>
+                  <dd class="total receipt__cost"> </dd>
+                </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-sm-7">
+      <h2>Completed Orders</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Order</th>
+            <th scope="col">Barista</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let count=1; %>
+            <% for(var i=0 ; i<orders.length; i++) {%>
+              <% if (orders[i].status===true && orders[i].served===false) { %>
+                <tr>
+                  <th scope="row">
+                    <%= count ++; %>
+                  </th>
+                  <td>
+                    <%= orders[i].customerName %>
+                  </td>
+                  <td>
+                    <ul>
+                      <% for(var j=0 ; j<orders[i].drink.length; j++) {%>
+                        <li><span>
+                            <%= orders[i].drink[j] %>
+                          </span>, <span>
+                            <%= orders[i].size[j] %>
+                          </span>, <span>
+                            <%= orders[i].milk[j] %>
+                          </span>, <span>
+                            <%= orders[i].addOns[j] %>
+                          </span>
+                        </li>
+                        <% } %>
+                    </ul>
+                  </td>
+                  <td>
+                    <%= orders[i].barista %>
+                  </td>
+
+                  <td>
+                    <button type="button" class="yell btn btn-success"><i class="fas fa-concierge-bell"></i></button>
+                  </td>
+                  <td>
+                    <input type="hidden" value=<%=orders[i]._id %>>
+                    <button type="button" class="served btn btn-success"><i class="far fa-thumbs-up"></i></button>
+                  </td>
+                </tr>
+                <% } %>
+                  <% } %>
+        </tbody>
+        <table>
+    </div>
+  </main>
+  <%- include('./partials/modals'); %>
+
+
+    <script src="order.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+</body>
+
+</html>

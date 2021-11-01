@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barista</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+ 
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="page-header text-center">
+  
+    <h1><img
+        src="https://img.icons8.com/external-wanicon-flat-wanicon/64/000000/external-coffee-pot-coffee-shop-wanicon-flat-wanicon.png" />
+      <%= user.local.email %>'s Profile
+    </h1>
+  </div>
+
+  <div id="contain">
+    <section class="col-6 col-sm-5">
+      <div class="well col-6 col-sm-5">
+        <h3><img
+            src="https://img.icons8.com/external-itim2101-fill-itim2101/64/000000/external-barista-cafe-itim2101-fill-itim2101.png" />
+          <%= user.local.email %>
+        </h3>
+        <h6>
+          <strong>id</strong>: <%= user._id %><br>
+        </h6>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+
+
+      </div>
+      <div class="col-6 col-sm-12">
+        <h3  >
+          <%= user.local.email %>'s Completed Orders
+        </h3>
+       
+        <table class="table table-striped">
+         
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Customer's Name</th>
+              <th scope="col">Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0 ; i<orders.length; i++) {%>
+              <% if (orders[i].status===true && user.local.email===orders[i].barista) { %>
+                <tr>
+                  <th scope="row">
+                    <%= i + 1 %>
+                  </th>
+                  <td>
+                    <%= orders[i].customerName %>
+                  </td>
+                  <td>
+                    <ul>
+                      <% for(var j=0 ; j<orders[i].drink.length; j++) {%>
+                        <li><span>
+                            <%= orders[i].drink[j] %>
+                          </span>, <span>
+                            <%= orders[i].size[j] %>
+                          </span>, <span>
+                            <%= orders[i].milk[j] %>
+                          </span>, <span>
+                            <%= orders[i].addOns[j] %>
+                          </span></li>
+                        <% } %>
+                    </ul>
+                  </td>
+                </tr>
+                <% } %>
+                  <% } %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!-- LOCAL INFORMATION -->
+
+    <div class="col-6 col-sm-7">
+      <h3>All Orders</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Order</th>
+            <th scope="col">Status</th>
+            <th scope="col">Barista</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0 ; i<orders.length; i++) {%>
+            <tr>
+              <th scope="row">
+                <%= i + 1 %>
+              </th>
+              <td>
+                <%= orders[i].customerName %>
+              </td>
+              <td>
+                <ol>
+                  <% for(var j=0 ; j<orders[i].drink.length; j++) {%>
+                    <li><span>
+                        Drink:<%= orders[i].drink[j] %>
+                      </span>, <span>
+                        size:<%= orders[i].size[j] %>
+                      </span>, <span>
+                        Milk:<%= orders[i].milk[j] %>
+                      </span>, <span>
+                        Add-Ons:<%= orders[i].addOns[j] %>
+                      </span></li>
+                    <% } %>
+                </ol>
+
+              </td>
+
+              <td>
+                <input type="hidden" value=<%=orders[i]._id %>>
+                <% if (orders[i].status===true) { %>
+                  <span class="completed">Completed</span>
+                  <i class="fas fa-check"></i>
+                  <%} else { %>
+                    <span class="pending">Pending</span>
+                    <i class="status fas fa-check-square"></i>
+                    <% } %>
+              </td>
+              <td>
+                <%= orders[i].barista %>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+  <script src="main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <style>
+    
+   
+  </style>
+
+</body>
+
+</html>

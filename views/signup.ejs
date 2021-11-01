@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <title>Barista</title>
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+ 
+<body>
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+ 
+        <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+            <div class="container">
+              <div class="card login-card">
+                <div class="row no-gutters">
+                  <div class="col-md-5">
+                    <img src="https://images.unsplash.com/photo-1553867669-5ef9529cc9a2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=793&q=80" alt="login" class="login-card-img">
+                   
+                  </div>
+                  <div class="col-md-7">
+                    <div class="card-body">
+                      <div class="brand-wrapper">
+                        <img src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/000000/external-coffee-coffee-shop-flatart-icons-lineal-color-flatarticons-17.png"/>
+                      </div>
+                      <p class="login-card-description">Create an account</p>
+                      <form action="/signup" method="post">
+                          <div class="form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="User Name">
+                          </div>
+                          <div class="form-group mb-4">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="***********">
+                          </div>
+                          <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Sign Up">
+                        </form>
+                        <p class="login-card-footer-text">Already have an account? <a href="/login" class="text-reset">Sign in here</a></p>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+       
+</body>
+</html>
